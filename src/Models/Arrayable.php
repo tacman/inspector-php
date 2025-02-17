@@ -93,8 +93,7 @@ abstract class Arrayable implements \ArrayAccess, \JsonSerializable
      * @param mixed $value The value to set
      * @abstracting ArrayAccess
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (\is_null($offset)) {
             $this->data[] = $value;
@@ -110,8 +109,7 @@ abstract class Arrayable implements \ArrayAccess, \JsonSerializable
      * @return boolean
      * @abstracting ArrayAccess
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
@@ -122,8 +120,7 @@ abstract class Arrayable implements \ArrayAccess, \JsonSerializable
      * @param string $offset The offset to unset
      * @abstracting ArrayAccess
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         if ($this->offsetExists($offset)) {
             unset($this->data[$offset]);
@@ -138,7 +135,7 @@ abstract class Arrayable implements \ArrayAccess, \JsonSerializable
      * @abstracting ArrayAccess
      */
     #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->offsetExists($offset) ? $this->data[$offset] : null;
     }
@@ -148,7 +145,7 @@ abstract class Arrayable implements \ArrayAccess, \JsonSerializable
      *
      * @return false|string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return \json_encode($this->jsonSerialize());
     }
